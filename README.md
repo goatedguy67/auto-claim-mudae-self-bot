@@ -30,6 +30,7 @@ Python script that requires settings to mimic your rolling behavior of claiming 
 - I don't really use github. I'm a new programmer who wants to be a great one so any criticism is welcome.
 - This project was heavily inspired by this deprecated [one](https://github.com/vivinano/MudaeAutoBot).
 - I planned to use the library discord.py-self. But I think some tests where on the regular discord.py because i didn't specify my virtual enviroment so it probably works with both.
+- Tested in private servers with a few players.
 
 ## Contributions
 
