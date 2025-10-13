@@ -1,0 +1,52 @@
+# Make sure to change this file name to bot-settings.toml
+
+token = "YOUR_DISCORD_ACCOUNT_TOKEN"
+UTC_delta = 0 # For example VET is UTC-4 so -4
+
+rolling = true #Not used atm
+
+# Case sensitive
+wish_series = [ 
+    "Naruto",
+    "Pokedex"
+]
+
+[[channels_information]] 
+id = 1401822203103678546 # To be more specific the id of the channel to roll in
+[channels_information.settings]
+    rolls = 10 # Roll quantity
+    prefix = "$" 
+    command = "mx" # The command to roll
+    shifthour = 0 # $shifthour of the server
+    restart_time_minute = 40 # The minute where the rolls restart
+    delay = 40 # Will wait this amount of seconds before claiming
+    rt_cooldown_in_seconds = 72000 
+    # Get most of this by $ku
+    kakera_power_total = 110 
+    kakera_power_cost = 36
+    kakera_power_value = 110
+    wish_list = [ # Case sensitive
+        "Raiden Mei",
+        "Zero Two"
+    ]
+    min_kakera_value = 200 # Anything greather than this value will be "wished"
+
+# You add more channels by copy pasting the entire [[channels_information]]
+[[channels_information]]
+id = 1401974432876072970 # 
+[channels_information.settings]
+    rolls = 11
+    prefix = "$"
+    command = "mx"
+    shifthour = 0
+    restart_time_minute = 32
+    delay = 40
+    rt_cooldown_in_seconds = 72000 
+    kakera_power_total = 110
+    kakera_power_cost = 36
+    kakera_power_value = 110
+    wish_list = [ # Case sensitive
+        "Raiden Mei",
+        "Zero Two"
+    ]
+    min_kakera_value = 200 # Anything greather than this value will be "wished"    
