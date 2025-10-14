@@ -80,41 +80,48 @@ class KakeraPower:
                 continue
             break
         self._dk = False
-        print("Claimed dk")
+        print(f"Claimed dk on {self._channel.guild.name}.\n")
         await asyncio.sleep(86400)
         self._dk = True
 
     async def can_claim(self) -> bool:
+        print(f"Cheking if you can claim kakera on {self._channel.guild.name}...")
         if not self._value >= self._cost:
             if self._dk:
                 try:
                     self.claim_dk.start()
                 except RuntimeError:
+                    print(
+                        f"... You can't claim kakera on {self._channel.guild.name}.\n"
+                    )
                     return False
+                print(f"... You can claim kakera on {self._channel.guild.name}.\n")
                 return True
+            print(f"... You can't claim kakera on {self._channel.guild.name}.\n")
             return False
+        print(f"... You can claim kakera on {self._channel.guild.name}.\n")
         return True
 
     async def claim(self, message) -> None:
         if not await self.can_claim():
             return
 
+        print(f"Waiting {self._delay} to claim kakera on {self._channel.guild.name}.\n")
         await asyncio.sleep(self._delay)
 
         # I don't know what causes this, that's why im not putting While True
         try:
             await message.components[0].children[0].click()
         except discord.errors.InvalidData:
-            print("Could not claim Kakera")
+            print(f"Could not claim Kakera {self._channel.guild.name}.\n")
             return
 
-        print("Claimed Kakera")
+        print(f"Claimed Kakera on {self._channel.guild.name}.\n")
         self -= self.cost
 
 
 class ClaimCooldown:
     def __init__(self, shifthour: int) -> None:
-        # self._total_cooldown_in_seconds: int = cooldown_in_seconds
         self._shifthour: int = shifthour
         self._possible_hours: list[int] = [1, 3, 2]
         self._max_cooldown: timedelta = timedelta(hours=3)
@@ -212,7 +219,7 @@ class Rolls:
     @tasks.loop(count=1)
     async def claim_rt(self) -> None:
         self._rt = False
-        print("Claimed rt")
+        print(f"Claimed rt on {self._channel.guild.name}\n")
         await asyncio.sleep(self._rt_cooldown)
         self._rt = True
 
@@ -225,13 +232,12 @@ class Rolls:
     @tasks.loop(count=1)
     async def check_claims(self) -> None:
         await asyncio.sleep(self._delay)
-        print("Checking Claims...")
-        print(f"Claiming with ")
+        print(f"Checking Claims on {self._channel.guild.name}...")
         await self.claim_rolls()
 
     @tasks.loop(hours=1)
     async def rolling(self) -> None:
-        print("Rolling...")
+        print(f"Rolling on {self._channel.guild.name}...")
         for _ in range(self._quantity):
             while True:
                 try:
@@ -264,24 +270,27 @@ class Rolls:
         # I don't know what causes this, that's why im not putting While True
         try:
             await roll_list[0].components[0].children[0].click()
-            message = (
-                f"{roll_list[0].embeds[0].to_dict()['author']['name']} was claimed"
-            )
+            message = f"{roll_list[0].embeds[0].to_dict()['author']['name']} was claimed on {self._channel.guild.name}"
         except discord.errors.InvalidData:
-            message = "Could not claim."
+            message = f"Could not claim {roll_list[0].embeds[0].to_dict()['author']['name']} on {self._channel.guild.name}."
 
         print(message)
         self.clean_claims()
 
     async def can_claim(self) -> bool:
+        print(f"Cheking if you can claim rolls on {self._channel.guild.name}...")
         if not self._claim:
             if self._rt:
                 self.claim_rt.start()
+                print(f"... You can claim rolls on {self._channel.guild.name}\n")
                 return True
+            print(f"... You can't claim rolls on {self._channel.guild.name}\n")
             return False
+        print(f"... You can claim rolls on {self._channel.guild.name}\n")
         return True
 
     def clean_claims(self) -> None:
+        print(f"Cleaning claims on {self._channel.guild.name}.")
         self._available_regular_claims = []
         self._available_wished_claims = []
 
@@ -362,13 +371,7 @@ class MudaeBot(discord.Client):
 
         char_name = embed["author"]["name"]
         description = embed["description"]
-        #         print(
-        #             f"""Embed: {embed}
-        # author: {embed["author"]}
-        # author_name: {embed["author"]["name"]}
-        # description: {embed["description"]}
-        # """
-        #         )
+
         rolls = self.rolls_for_guilds[channel_id]
 
         if (
@@ -379,14 +382,14 @@ class MudaeBot(discord.Client):
             > self.rolls_for_guilds[channel_id].min_kakera_value
         ):
             print(
-                f"Added {char_name} of {description} found in {m.guild}: {m.channel.name}\nTo wished_claims."
+                f"Added {char_name} of {description} found in {m.guild}: {m.channel.name} to wished_claims.\n"
             )
 
             await rolls.add_roll(rolls.available_wished_claims, m)
 
         if self.rolls_for_guilds[channel_id].last_claim():
             print(
-                f"Added {char_name} of {description}found in {m.guild}: {m.channel.name}\nTo regular_claims."
+                f"Added {char_name} of {description}found in {m.guild}: {m.channel.name} To regular_claims.\n"
             )
             await rolls.add_roll(rolls.available_wished_claims, m)
 
