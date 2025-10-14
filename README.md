@@ -1,4 +1,4 @@
-# Auto-Claim-Self-Bot
+# Auto-Claim-Mudae-Self-Bot
 
 ## Disclaimer
 
