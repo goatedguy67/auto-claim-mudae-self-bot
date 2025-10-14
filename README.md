@@ -23,8 +23,9 @@ Python script that requires settings to mimic your rolling behavior of claiming 
 - Adjust to different restart claims. Currently I dont know how does the 120 minute claim works to make it.
 - Currently is made for kakera value efficiency. It would be cool to use rt only for wished ones or have different modes if there are any.
 - Choose which kakera color you wanna claim.
-- Tests.
+- Adjust claim kakera cost for characters with 10+ keys.
 - No need to provide the $ku, $mu and $rtu to settings and get them at setup.
+- Tests.
 
 ## Known Issues
 
