@@ -24,6 +24,11 @@ Python script that requires settings to mimic your rolling behavior of claiming 
 - Currently is made for kakera value efficiency. It would be cool to use rt only for wished ones or have different modes if there are any.
 - Choose which kakera color you wanna claim.
 - Tests.
+- No need to provide the $ku, $mu and $rtu to settings and get them at setup.
+
+## Known Issues
+
+- When someone else claims first it still believes it claimed.
 
 ## Notes
 
