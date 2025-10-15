@@ -14,7 +14,7 @@ Python script that requires settings to mimic your rolling behavior of claiming 
 - Claims by series.
 - Claims kakera.
 - Claims with given delay.
-- Claims with last hour claim.
+- Auto claim if its last hour claim.
 - Checks if dk and rt are available to use them.
 - Reconnects.
 
@@ -24,7 +24,7 @@ Python script that requires settings to mimic your rolling behavior of claiming 
 - Currently is made for kakera value efficiency. It would be cool to use rt only for wished ones or have different modes if there are any.
 - Choose which kakera color you wanna claim.
 - Adjust claim kakera cost for characters with 10+ keys.
-- No need to provide the $ku, $mu and $rtu to settings and get them at setup.
+- No need to provide the $ku and $rtu information aswell as the availability of claim and rt to settings and get them at setup.
 - Tests.
 
 ## Known Issues
