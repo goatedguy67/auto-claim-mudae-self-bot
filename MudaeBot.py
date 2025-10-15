@@ -103,12 +103,11 @@ class KakeraPower:
         return True
 
     async def claim(self, message) -> None:
-        if not await self.can_claim():
-            return
-
         print(f"Waiting {self._delay} to claim kakera on {self._channel.guild.name}.\n")
         await asyncio.sleep(self._delay)
 
+        if not await self.can_claim():
+            return
         # I don't know what causes this, that's why im not putting While True
         try:
             await message.components[0].children[0].click()
