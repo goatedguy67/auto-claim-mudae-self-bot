@@ -15,7 +15,7 @@ Python script that requires settings to mimic your rolling behavior of claiming 
 - Claims kakera.
 - Claims with given delay.
 - Claims with last hour claim.
-- Checks if dk and rt are available and to use them.
+- Checks if dk and rt are available to use them.
 - Reconnects.
 
 ## Cool things to add
