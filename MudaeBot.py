@@ -390,7 +390,7 @@ class MudaeBot(discord.Client):
             print(
                 f"Added {char_name} of {description}found in {m.guild}: {m.channel.name} To regular_claims.\n"
             )
-            await rolls.add_roll(rolls.available_wished_claims, m)
+            await rolls.add_roll(rolls.available_regular_claims, m)
 
     async def on_message(self, message: discord.Message):
         try:
