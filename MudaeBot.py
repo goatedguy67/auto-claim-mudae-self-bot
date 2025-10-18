@@ -46,10 +46,14 @@ class KakeraPower:
     def __iadd__(self, n: int) -> None:
         if (self._value + n) <= self._total:
             self._value += n
+        else:
+            self._value = self._total
 
     def __isub__(self, n: int) -> None:
         if (self._value - n) > -1:
             self._value -= n
+        else:
+            self._value = 0
 
     @property
     def total(self):
@@ -80,6 +84,8 @@ class KakeraPower:
                 continue
             break
         self._dk = False
+        self._value = self._total
+
         print(f"Claimed dk on {self._channel.guild.name}.\n")
         await asyncio.sleep(86400)
         self._dk = True
