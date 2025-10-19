@@ -284,7 +284,7 @@ class Rolls:
         try:
             await roll_list[0].components[0].children[0].click()
             message = f"{roll_list[0].embeds[0].to_dict()['author']['name']} was claimed on {self._channel.guild.name}"
-            self._claim = False
+            self.claim_cooldown.start()
         except discord.errors.InvalidData:
             message = f"Could not claim {roll_list[0].embeds[0].to_dict()['author']['name']} on {self._channel.guild.name}."
 
