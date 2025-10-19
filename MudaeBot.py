@@ -261,9 +261,6 @@ class Rolls:
             await asyncio.sleep(0.5)
 
     async def add_roll(self, roll_list, message) -> None:
-        if not await self.can_claim():
-            return
-
         roll_list.append(message)
         try:
             await self.check_claims.start()
@@ -271,6 +268,9 @@ class Rolls:
             pass
 
     async def claim_rolls(self) -> None:
+        if not await self.can_claim():
+            return
+
         roll_list = self._available_wished_claims or self._available_regular_claims
 
         if not roll_list:
