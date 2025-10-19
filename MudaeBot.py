@@ -224,6 +224,7 @@ class Rolls:
     @tasks.loop(count=1)
     async def claim_rt(self) -> None:
         self._rt = False
+
         print(f"Claimed rt on {self._channel.guild.name}\n")
         await asyncio.sleep(self._rt_cooldown)
         self._rt = True
@@ -276,6 +277,7 @@ class Rolls:
         try:
             await roll_list[0].components[0].children[0].click()
             message = f"{roll_list[0].embeds[0].to_dict()['author']['name']} was claimed on {self._channel.guild.name}"
+            self._claim = False
         except discord.errors.InvalidData:
             message = f"Could not claim {roll_list[0].embeds[0].to_dict()['author']['name']} on {self._channel.guild.name}."
 
