@@ -225,6 +225,13 @@ class Rolls:
     async def claim_rt(self) -> None:
         self._rt = False
 
+        while True:
+            try:
+                await self._channel.send(f"{self._prefix}rt")
+            except discord.errors.NotFound:
+                continue
+            break
+
         print(f"Claimed rt on {self._channel.guild.name}\n")
         await asyncio.sleep(self._rt_cooldown)
         self._rt = True
