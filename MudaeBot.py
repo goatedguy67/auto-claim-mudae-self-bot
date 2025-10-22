@@ -227,7 +227,7 @@ class Rolls:
 
         while True:
             try:
-                self._channel.send(f"{self._prefix}rt")
+                await self._channel.send(f"{self._prefix}rt")
             except discord.errors.NotFound:
                 continue
             break
