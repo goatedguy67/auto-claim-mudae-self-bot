@@ -395,8 +395,6 @@ class MudaeBot(discord.Client):
             str(self.user.id) in m.content
             or char_name in self.rolls_for_guilds[channel_id].wished
             or description in wish_series
-            or int(kakera_description_pattern.findall(description)[0])
-            > self.rolls_for_guilds[channel_id].min_kakera_value
         ):
             print(
                 f"Added {char_name} of {description} found in {m.guild}: {m.channel.name} to wished_claims.\n"
@@ -404,7 +402,11 @@ class MudaeBot(discord.Client):
 
             await rolls.add_roll(rolls.available_wished_claims, m)
 
-        if self.rolls_for_guilds[channel_id].last_claim():
+        if (
+            self.rolls_for_guilds[channel_id].last_claim()
+            or int(kakera_description_pattern.findall(description)[0])
+            > self.rolls_for_guilds[channel_id].min_kakera_value
+        ):
             print(
                 f"Added {char_name} of {description}found in {m.guild}: {m.channel.name} To regular_claims.\n"
             )
