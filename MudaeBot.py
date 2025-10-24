@@ -20,8 +20,17 @@ for information in settings["channels_information"]:
 
 wish_series = settings["wish_series"]
 
-powers_pattern = compile(r"(\d?\d?\d)%")
+powers_pattern = compile(r"(\d+)%")
+
+# Finds or not
 kakera_description_pattern = compile(r"\*\*(\d+)\*\*")
+find_tu_pattern = compile(r"\*\*=>\*\* \$tuarrange")
+claim_tu_pattern = compile(r"__(.+)__.+\.")
+
+# Si no encuentra es que esta disponible, encuentra 2 dígitos (hora y minuto) o 1 dígito (minuto)
+daily_tu_pattern = compile(r"\$daily\D+(\d\d)?.+(\d\d)")
+rt_tu_pattern = compile(r"\$rt\D+(\d\d)?.+(\d\d)")
+dk_tu_pattern = compile(r"\$dk\D+(\d\d)?.+(\d\d)")
 
 
 class KakeraPower:
@@ -348,6 +357,24 @@ class MudaeBot(discord.Client):
 
     async def on_ready(self):
         print(f"Logged on as {self.user} (ID: {self.user.id})!")
+
+    async def found_tu(self, channel) -> int:  # TODO
+        last_message = await channel.fetch_message(channel.last_message_id)
+        if find_tu_pattern.search(last_message.content):
+            return last_message.id
+        return 0
+
+    async def get_tu(self, channel, prefix) -> int:  # TODO
+        tu_id = 0
+        while not (output := await self.found_tu(channel)):
+            while True:
+                try:
+                    await channel.send(f"{prefix}tu")
+                except discord.errors.NotFound:
+                    continue
+                break
+
+        return output
 
     def is_valid_roll(self, message, information) -> str:
         if (
